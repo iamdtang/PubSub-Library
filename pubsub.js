@@ -9,9 +9,17 @@ var PS = {
 			return;
 		}
 	
+		if (typeof cb !== 'function') {
+			throw new Error('Callback must be a function')
+			return;
+		}
+	
+		//if the topic doesn't exist, create the topic
 		if ( !(this.topicList[topic]) ) {
 			this.topicList[topic] = [];
 		}
+		
+		//push the cb function to the topic i.e. 'subscribe to that topic'
 		this.topicList[topic].push(cb);
 		
 		//return current index so that it can be used for unsubscribing
@@ -37,6 +45,7 @@ var PS = {
 			return;
 		}
 		
+		//get the number of subscriptions for this topic
 		len = this.topicList[topic].length;
 		
 		//any arguments passed the subscribed fn's will need to be an array
@@ -44,6 +53,10 @@ var PS = {
 			arg = arguments[1];
 		}
 		
+		/*
+		 * iterate over the subscriptions for this topic and invoke each cb function
+		 * passing it any arguments from the arguments array at position 1
+		 */
 		for (var i=0; i<len; i++) {
 			//invoke fn for specified topic, passing it an array of arguments
 			this.topicList[topic][i](arg);
