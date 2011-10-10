@@ -34,22 +34,20 @@ var PS = {
 			throw new Error('Topic must be a string');
 		}
 		
-		//check if the topic exists. a topic exists if there are any subscriptions to it
-		//if it doesnt exist, dont allow the user to publish this topic
-		if (this.topicList[topic] === undefined) {
-			throw new Error('No subscriptions to topic: '+topic);
-		}
-		
 		//any arguments passed to the subscribed fn's will need to be an array
 		if ( (arguments[1] !== undefined) && (arguments[1] instanceof Array) ) {
 			arg = arguments[1];
 		}
 		
-		/*
-		 * iterate over the subscriptions for this topic and invoke each cb function
-		 * passing it any arguments from the arguments array at position 1
-		 */
-		if(this.topicList.hasOwnProperty(topic)) {
+		//check if the topic exists. a topic exists if there are any subscriptions to it
+		//if it doesnt exist, dont allow the user to publish this topic
+		if (this.topicList[topic] === undefined) {
+			throw new Error('No subscriptions to topic: '+topic);
+		}
+		else {
+			/* iterate over the subscriptions for this topic and invoke each cb function
+			 * passing it any arguments from the arguments array at position 1
+			 */
 			for(var key in this.topicList[topic]) {	
 				if(this.topicList[topic].hasOwnProperty(key)) {
 					this.topicList[topic][key](arg);
