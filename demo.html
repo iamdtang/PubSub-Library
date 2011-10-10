@@ -15,51 +15,57 @@
 		<a href="#" id="clickme1">Click me for Topic 1</a>
 		<a href="#" id="clickme2">Click me for Topic 2</a>
 		<a href="#" id="clickme3">Click me for Topic 3 (which doesn't exist)</a>
-	<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>
 	<script src="pubsub.js"></script>
 	<script>
 	
-		//subscription to /topic1
-		PS.subscribe('/topic1', function () {
+		/* Example: ***********************************************************************/
+		PS.subscribe('/topic1', 'sub1', function() {
 			console.log('subscription 1 for topic 1 called');
 		});
 		
-		PS.subscribe('/topic1', function () {
+		PS.subscribe('/topic1', 'sub2', function() {
 			console.log('subscription 2 for topic 1 called');
 		});
 		
+		PS.subscribe('/topic1', 'sub3', function() {
+			console.log('subscription 3 for topic 1 called');
+		});
+		
+		//PS.unsubscribe('/topic1', 'sub1');
+		PS.unsubscribe('/topic1', 'sub2');
+		//PS.unsubscribe('/topic1', 'sub3');
+		
 		document.getElementById('clickme1').onclick = function () {
 			PS.publish('/topic1');
-		}
+		};
 		
-		/***********************************************************************/
 		
-		//subscription to /topic2
-		var index1 = PS.subscribe('/topic2', function () {
+		/* Example: ***********************************************************************/
+		//using arguments		
+		PS.subscribe('/topic2', 'sub1_t2', function () {
 			console.log('subscription 1 for topic 2 called');
 		});
 		
-		var index2 = PS.subscribe('/topic2', function () {
+		PS.subscribe('/topic2', 'sub2_t2', function () {
 			console.log('subscription 2 for topic 2 called');
 		});
 		
-		var index3 = PS.subscribe('/topic2', function (arg) {
+		PS.subscribe('/topic2', 'sub3_t2', function (arg) {
 			console.log('subscription 3 for topic 2 called');
 			console.log('arguments: '+arg.toString());
 		});
 		
 		document.getElementById('clickme2').onclick = function () {
-			PS.unsubscribe('/topic2', index1);
+			PS.unsubscribe('/topic2', 'sub2_t2');
 			PS.publish('/topic2', ['arg1', 'arg2', 55, 'arg3']);
 		}
 		
-		/***********************************************************************/
 		
+		/* Example: ***********************************************************************/
 		//what happens when you publish on a topic with no subscriptions
 		document.getElementById('clickme3').onclick = function () {
 			PS.publish('/topic3');
 		}
-		
 		
 	</script>
 	</body>
