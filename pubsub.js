@@ -7,7 +7,7 @@ var PS = {
 	
 	subscribe: function (topic, subName, cb) {
 		if (typeof topic !== 'string' && typeof subName !== 'string' && typeof cb !== 'function'){
-			throw new Error('Arguments of the wrong type.');
+			throw new Error('Subscribe arguments of the wrong type.');
 		}
 		
 		//if the topic doesn't exist, create the topic
@@ -22,7 +22,7 @@ var PS = {
 	
 	unsubscribe: function (topic, subName) {
 		if(typeof topic !== 'string' && typeof subName !== 'string') {
-			throw new Error('Arguments of the wrong type.')
+			throw new Error('Unsubscribe arguments of the wrong type.')
 		}	
 		delete this.topicList[topic][subName];
 	},
@@ -49,9 +49,11 @@ var PS = {
 		 * iterate over the subscriptions for this topic and invoke each cb function
 		 * passing it any arguments from the arguments array at position 1
 		 */
-		for(var key in this.topicList[topic]) {
-			if(this.topicList.hasOwnProperty(topic)) {
-				this.topicList[topic][key](arg);
+		if(this.topicList.hasOwnProperty(topic)) {
+			for(var key in this.topicList[topic]) {	
+				if(this.topicList[topic].hasOwnProperty(key)) {
+					this.topicList[topic][key](arg);
+				}
 			}
 		}
 	}
