@@ -5,7 +5,7 @@ var PS = {
 	 */
 	topicList: {},
 	
-	subscribe: function (topic, subName, cb) {
+	subscribe: function (topic, subName, cb) {		
 		if (typeof topic !== 'string' && typeof subName !== 'string' && typeof cb !== 'function'){
 			throw new Error('Subscribe arguments of the wrong type.');
 		}
@@ -15,15 +15,21 @@ var PS = {
 			this.topicList[topic] = [];
 		}
 
-		//add the cb function to the topic under the key subName
-		//if the subscription name already exists, the new function will override the old one
-		this.topicList[topic][subName] = cb;
+		//add the cb function to the topic under the key subName if subName does not exist
+		//console.log(this.topicList[topic])
+		if(typeof this.topicList[topic][subName] === 'undefined') {
+			this.topicList[topic][subName] = cb;
+		}
+		else {
+			throw new Error('Subscription already exists');
+		}	
 	},
 	
 	unsubscribe: function (topic, subName) {
 		if(typeof topic !== 'string' && typeof subName !== 'string') {
 			throw new Error('Unsubscribe arguments of the wrong type.')
-		}	
+		}
+			
 		delete this.topicList[topic][subName];
 	},
 	

@@ -31,7 +31,14 @@
 			console.log('subscription 3 for topic 1 called');
 		});
 		
-		console.log(PS.topicList)
+		// what happens when you create a subscription w the same name
+		///*
+		PS.subscribe('/topic1', 'sub3', function() {
+			console.log('duplicate for subscription 3 for topic 1 called');
+		});
+		//*/
+		
+		//console.log(PS.topicList)
 		//PS.unsubscribe('/topic1', 'sub1');
 		PS.unsubscribe('/topic1', 'sub2');
 		//PS.unsubscribe('/topic1', 'sub3');
@@ -42,7 +49,8 @@
 		
 		
 		/* Example: ***********************************************************************/
-		//using arguments		
+		//using arguments
+		/*		
 		PS.subscribe('/topic2', 'sub1_t2', function () {
 			console.log('subscription 1 for topic 2 called');
 		});
@@ -60,7 +68,7 @@
 			PS.unsubscribe('/topic2', 'sub2_t2');
 			PS.publish('/topic2', ['arg1', 'arg2', 55, 'arg3']);
 		}
-		
+		*/
 		
 		/* Example: ***********************************************************************/
 		//what happens when you publish on a topic with no subscriptions
