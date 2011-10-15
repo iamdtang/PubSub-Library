@@ -1,4 +1,4 @@
-Check out the demo pages for examples on how to use the methods of the PS object. The first demo just tests each method by printing to the console.
+Check out the demo pages for examples on how to use the methods of the PS object. The first demo (demo.html) just tests each method by printing to the console.
 
 ====Subscribe======
 Method: subscribe(topic, subName, function)
