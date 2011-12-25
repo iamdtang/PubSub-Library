@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Contact Search</title>
+<style>
+	div {margin:15px;}
+</style>
+</head>
+
+<body>
+
+<div id="searchBox">
+	<input type="text" id="search-input" />
+	<input type="button" value="Search" id="search" />
+</div>
+
+<div id="mySearch"></div>
+
+<div id="results">
+	<h3>My Buddies</h3>
+	<ul id="contacts">
+		<li>David</li>
+		<li>John</li>
+		<li>Abtin</li>
+		<li>Kevin</li>
+		<li>Patrick</li>
+		<li>Doug</li>
+		<li>Shehzad</li>
+		<li>Kristen</li>
+		<li>Christine</li>
+		<li>Pat</li>
+		<li>Johnathan</li>
+		<li>Chris</li>
+	</ul>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="pubsub.js"></script>
+<script>
+PS.subscribe('search-made', 'styleResults', function(searchTerm) {
+	$('#contacts li').each(function() {
+		if (this.innerHTML === searchTerm) {
+			this.style.backgroundColor = 'yellow';
+		}
+	});
+});
+
+PS.subscribe('search-made', 'displaySearchTerm', function(searchTerm) {
+	document.getElementById('mySearch').innerHTML = "Your Search was: " + searchTerm;
+});
+
+$('#search').bind('click', function() {
+	var searchTerm = document.getElementById('search-input').value;
+	PS.publish('search-made', searchTerm);
+});
+
+//uncomment the following line if you dont want to display the search term above the unordered list
+//PS.unsubscribe('search-made', 'displaySearchTerm');
+</script>
+
+</body>
+</html>
