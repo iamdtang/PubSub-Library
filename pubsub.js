@@ -40,8 +40,7 @@ var PS = {
 			throw new Error('Topic must be a string');
 		}
 		
-		//any arguments passed to the subscribed fn's will need to be an array
-		if ( (arguments[1] !== undefined) && (arguments[1] instanceof Array) ) {
+		if (arguments[1] !== undefined) {
 			arg = arguments[1];
 		}
 		
