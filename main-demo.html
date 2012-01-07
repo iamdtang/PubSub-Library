@@ -35,10 +35,10 @@
 	</ul>
 </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="jquery.min.js"></script>
 <script src="pubsub.js"></script>
 <script>
-PS.subscribe('search-made', 'styleResults', function(searchTerm) {
+var highlightSearch = PS.subscribe('search-made', function(searchTerm) {
 	$('#contacts li').each(function() {
 		if (this.innerHTML === searchTerm) {
 			this.style.backgroundColor = 'yellow';
@@ -46,7 +46,7 @@ PS.subscribe('search-made', 'styleResults', function(searchTerm) {
 	});
 });
 
-PS.subscribe('search-made', 'displaySearchTerm', function(searchTerm) {
+var yourSearch = PS.subscribe('search-made', function(searchTerm) {
 	document.getElementById('mySearch').innerHTML = "Your Search was: " + searchTerm;
 });
 
@@ -55,8 +55,9 @@ $('#search').bind('click', function() {
 	PS.publish('search-made', searchTerm);
 });
 
-//uncomment the following line if you dont want to display the search term above the unordered list
-//PS.unsubscribe('search-made', 'displaySearchTerm');
+//uncomment the following line if you want to unsubscribe either modules
+//PS.unsubscribe('search-made', yourSearch);
+//PS.unsubscribe('search-made', highlightSearch);
 </script>
 
 </body>

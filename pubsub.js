@@ -1,40 +1,41 @@
-var PS = {
+var PS = (function() {
 	 
 	/* topicList is an object containing topics. 
 	 * Each topic is an associative array, where the key is the subscription name and the value is the function
 	 */
-	topicList: {},
+	var topicList = {},
+		subID = 0;
 	
-	subscribe: function (topic, subName, cb) {		
-		if (typeof topic !== 'string' && typeof subName !== 'string' && typeof cb !== 'function'){
+	var subscribe = function (topic, cb) {	
+		if (typeof topic !== 'string' && typeof cb !== 'function') {
 			throw new Error('Subscribe arguments of the wrong type.');
 		}
 		
 		//if the topic doesn't exist, create the topic
-		if ( !(this.topicList[topic]) ) {
-			this.topicList[topic] = [];
+		if ( !(topicList[topic]) ) {
+			topicList[topic] = {};
 		}
-
-		//add the cb function to the topic under the key subName if subName does not exist
-		//console.log(this.topicList[topic])
-		if(typeof this.topicList[topic][subName] === 'undefined') {
-			this.topicList[topic][subName] = cb;
-		}
-		else {
-			throw new Error('Subscription already exists');
-		}	
-	},
+		
+		//add the cb function to the topic under the key subID
+		subID += 1;
+		topicList[topic][subID] = cb;
+				
+		return subID;
+	};
 	
-	unsubscribe: function (topic, subName) {
-		if(typeof topic !== 'string' && typeof subName !== 'string') {
+	var unsubscribe = function (topic, subID) {
+		if(typeof topic !== 'string' && typeof subID !== 'number') {
 			throw new Error('Unsubscribe arguments of the wrong type.')
 		}
-			
-		delete this.topicList[topic][subName];
-	},
+		
+		if(topicList[topic][subID]){
+			delete topicList[topic][subID];
+			return true;
+		}	
+	};
 	
-	publish: function (topic) {
-		var arg = [];
+	var publish = function (topic) {
+		var arg = null;
 		
 		if (typeof topic !== 'string'){
 			throw new Error('Topic must be a string');
@@ -46,18 +47,25 @@ var PS = {
 		
 		//check if the topic exists. a topic exists if there are any subscriptions to it
 		//if it doesnt exist, dont allow the user to publish this topic
-		if (this.topicList[topic] === undefined) {
+		if (topicList[topic] === undefined) {
 			throw new Error('No subscriptions to topic: '+topic);
 		}
 		else {
 			/* iterate over the subscriptions for this topic and invoke each cb function
 			 * passing it any arguments from the arguments array at position 1
 			 */
-			for(var key in this.topicList[topic]) {	
-				if(this.topicList[topic].hasOwnProperty(key)) {
-					this.topicList[topic][key](arg);
+			for(var key in topicList[topic]) {	
+				if(topicList[topic].hasOwnProperty(key)) {
+					topicList[topic][key](arg);
 				}
 			}
 		}
-	}
-};
+	};
+	
+	return {
+		publish: publish,
+		subscribe: subscribe,
+		unsubscribe: unsubscribe
+	};
+	
+})();
