@@ -25,7 +25,7 @@ var PS = (function() {
 	
 	var unsubscribe = function (topic, subID) {
 		if(typeof topic !== 'string' && typeof subID !== 'number') {
-			throw new Error('Unsubscribe arguments of the wrong type.')
+			throw new Error('Unsubscribe arguments of the wrong type.');
 		}
 		
 		if(topicList[topic][subID]){
@@ -47,7 +47,7 @@ var PS = (function() {
 		
 		//check if the topic exists. a topic exists if there are any subscriptions to it
 		//if it doesnt exist, dont allow the user to publish this topic
-		if (topicList[topic] === undefined) {
+		if (!topicList[topic]) {
 			throw new Error('No subscriptions to topic: '+topic);
 		}
 		else {
