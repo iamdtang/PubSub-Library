@@ -1,0 +1,22 @@
+<script src="src/PS.js"></script>
+<script>
+
+	var ps = new PS();
+
+	var s1 = ps.subscribe('test-topic', function(data) {
+		console.log(this, data);
+	});
+
+	var s2 = ps.subscribe('test-topic', function(data) {
+		console.log(this, data);
+	}, {
+		name: 'David',
+		age: 26
+	});
+
+	ps.publish('test-topic', 'some data');
+
+	//ps.unsubscribe('test-topic', s1); // removes s1 from topicList
+	console.log(ps);
+
+</script>
