@@ -1,7 +1,6 @@
 describe('PS', function() {
     var ps, sub1, unsub1;
 
-
     describe('subscribe()', function() {
         beforeEach(function() {
             ps = new PS();
@@ -48,7 +47,6 @@ describe('PS', function() {
         });
     });
 
-
     describe("publish('test-topic')", function() {
         var context1 = { name: 'David', age: 26 };
 
@@ -74,7 +72,6 @@ describe('PS', function() {
             expect(spy2).toHaveBeenCalledWith('data-here');
         });
 
-
         it("should invoke the callback in a particular context if passed as a 3rd argument", function() {
             ps.subscribe('test-topic', function() {
                 expect(this).toEqual(context1);
@@ -82,7 +79,5 @@ describe('PS', function() {
 
             ps.publish('test-topic');
         });
-
-
     });
 });
