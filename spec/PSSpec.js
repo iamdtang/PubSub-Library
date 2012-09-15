@@ -50,6 +50,8 @@ describe('PS', function() {
 
 
     describe("publish('test-topic')", function() {
+        var context1 = { name: 'David', age: 26 };
+
         beforeEach(function() {
             ps = new PS();
 
@@ -60,23 +62,27 @@ describe('PS', function() {
             ps.subscribe('test-topic', function() {
                 console.log('some function');
             });
-
-            ps.subscribe('test-topic', function() {
-                console.log('some function');
-            }, { name: 'David', age: 26});
         });
 
         it("should invoke the 3 callback functions registered to test-topic", function() {
             var spy1 = spyOn(ps.topicList['test-topic'][1], 'cb');
             var spy2 = spyOn(ps.topicList['test-topic'][2], 'cb');
-            var spy3 = spyOn(ps.topicList['test-topic'][3], 'cb');
 
             ps.publish('test-topic', 'data-here');
 
             expect(spy1).toHaveBeenCalledWith('data-here');
             expect(spy2).toHaveBeenCalledWith('data-here');
-            //expect(spy3).
         });
-    });
 
+
+        it("should invoke the callback in a particular context if passed as a 3rd argument", function() {
+            ps.subscribe('test-topic', function() {
+                expect(this).toEqual(context1);
+            }, context1);
+
+            ps.publish('test-topic');
+        });
+
+
+    });
 });
