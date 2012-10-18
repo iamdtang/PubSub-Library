@@ -4,19 +4,22 @@
 	var ps = new PS();
 
 	var s1 = ps.subscribe('test-topic', function(data) {
-		console.log(this, data);
+		console.log("context", this, data);
 	});
 
+
+	// 2nd param is the context of the cb function
 	var s2 = ps.subscribe('test-topic', function(data) {
-		console.log(this, data);
+		console.log("context", this, data);
 	}, {
 		name: 'David',
 		age: 26
 	});
 
+
 	ps.publish('test-topic', 'some data');
 
-	//ps.unsubscribe('test-topic', s1); // removes s1 from topicList
+	ps.unsubscribe(s1); // removes s1 from topicList
 	console.log(ps);
 
 </script>

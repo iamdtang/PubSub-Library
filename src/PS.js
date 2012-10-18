@@ -2,6 +2,7 @@
 	 
 	var PS = function() {
 		this.topicList = {};
+		this.topicLookup = {};
 		this.subID = 0;
 	};
 
@@ -20,10 +21,7 @@
 			}
 			
 			//check if the topic exists. a topic exists if there are any subscriptions to it
-			//if it doesnt exist, dont allow the user to publish this topic
-			if (!this.topicList[topic]) {
-				throw new Error('No subscriptions to topic: ' + topic);
-			} else {
+			if (this.topicList[topic]) {
 				/* iterate over the subscriptions for this topic and invoke each cb function
 				 * passing it any arguments from the arguments array at position 1
 				 */
@@ -57,16 +55,22 @@
 				context: contx
 			};
 					
+			this.topicLookup[this.subID] = topic;
 			return this.subID;
 		},
 
-		unsubscribe: function(topic, subID) {
-			if (typeof topic !== 'string' && typeof subID !== 'number') {
-				throw new Error('Unsubscribe arguments of the wrong type.');
+		unsubscribe: function(subID) {
+			var topic;
+
+			if (typeof subID !== 'number') {
+				throw new Error('Subscription ID of the wrong type.');
 			}
-			
-			if (this.topicList[topic][subID]){
+
+			if (this.topicLookup.hasOwnProperty(subID)) {
+				topic = this.topicLookup[subID];
+
 				delete this.topicList[topic][subID];
+				delete this.topicLookup[subID];
 				return true;
 			}
 

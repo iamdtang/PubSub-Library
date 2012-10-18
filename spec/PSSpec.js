@@ -21,7 +21,7 @@ describe('PS', function() {
         });
     });
 
-    describe("unsubscribe('test-topic')", function() {
+    describe("unsubscribe()", function() {
         beforeEach(function() {
             ps = new PS();
 
@@ -29,7 +29,7 @@ describe('PS', function() {
                 // code here
             });
 
-            unsub1 = ps.unsubscribe('test-topic', sub1);
+            unsub1 = ps.unsubscribe(sub1);
         });
 
         describe('topicList', function() {
@@ -43,7 +43,7 @@ describe('PS', function() {
         });
 
         it('should return false for an unsuccessful unsubscription', function() {
-            expect(ps.unsubscribe('test-topic', 99)).toBe(false);
+            expect(ps.unsubscribe(99)).toBe(false);
         });
     });
 
