@@ -2,7 +2,7 @@
   "name": "PS",
   "title": "PubSub-Library",
   "description": "A small PubSub library",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "homepage": "https://github.com/skaterdav85/PubSub-Library.git",
   "author": {
     "name": "David Tang",
