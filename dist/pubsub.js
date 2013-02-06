@@ -1,8 +1,8 @@
-/*! PubSub-Library - v1.2.0 - 2012-10-18
+/*! PubSub-Library - v2.0.0 - 2013-02-06
 * https://github.com/skaterdav85/PubSub-Library.git
-* Copyright (c) 2012 David Tang; Licensed MIT, GPL */
+* Copyright (c) 2013 ; Licensed  */
 
-(function(window, undefined) {
+(function(exports, undefined) {
 	 
 	var PS = function() {
 		this.topicList = {};
@@ -82,6 +82,6 @@
 		}
 	};
 	
-	window.PS = PS;
+	exports.PS = PS;
 
-})(window);
+})(typeof exports === 'undefined' ? window : exports);

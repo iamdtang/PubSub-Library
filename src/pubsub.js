@@ -1,4 +1,4 @@
-(function(window, undefined) {
+(function(exports, undefined) {
 	 
 	var PS = function() {
 		this.topicList = {};
@@ -78,6 +78,6 @@
 		}
 	};
 	
-	window.PS = PS;
+	exports.PS = PS;
 
-})(window);
+})(typeof exports === 'undefined' ? window : exports);

@@ -1,13 +1,25 @@
 {
-  "name": "PS",
-  "version": "0.0.0-ignored",
-  "engines": {
-    "node": ">= 0.6.0"
+  "name": "dtang-pubsub",
+  "buildname": "pubsub",
+  "title": "PubSub-Library",
+  "description": "A small PubSub library under the PS constructor function.",
+  "version": "2.0.0",
+  "homepage": "https://github.com/skaterdav85/PubSub-Library.git",
+  "author": "David Tang <dtang85@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skaterdav85/PubSub-Library.git"
   },
+  "bugs": {
+    "url": "https://github.com/skaterdav85/PubSub-Library/issues"
+  },
+  "dependencies": {},
+  "keywords": [],
+  "readmeFilename": "README.md",
+  "gitHead": "30ae32bdadeafe0bc0498e084fc5065873c1dc77",
+  "main": "dist/pubsub.js",
   "scripts": {
-    //"test": "grunt qunit"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "grunt": "~0.3.15"
-  }
+  "license": "BSD"
 }

@@ -3,9 +3,9 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: '<json:PS.json>',
+    pkg: '<json:package.json>',
     meta: {
-      banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+      banner: '/*! <%= pkg.title || pkg.buildname %> - v<%= pkg.version %> - ' +
         '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
         '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
         '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
@@ -13,14 +13,14 @@ module.exports = function(grunt) {
     },
     concat: {
       dist: {
-        src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>.js>'],
-        dest: 'dist/<%= pkg.name %>.<%= pkg.version %>.js'
+        src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.buildname %>.js>'],
+        dest: 'dist/<%= pkg.buildname %>.js'
       }
     },
     min: {
       dist: {
         src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
-        dest: 'dist/<%= pkg.name %>.<%= pkg.version %>.min.js'
+        dest: 'dist/<%= pkg.buildname %>.min.js'
       }
     },
     qunit: {
