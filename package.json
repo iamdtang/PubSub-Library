@@ -14,7 +14,7 @@
     "url": "https://github.com/skaterdav85/PubSub-Library/issues"
   },
   "dependencies": {},
-  "keywords": [],
+  "keywords": ["Pubsub", "Mediator", "Publish", "Subscribe", "Loose coupling"],
   "readmeFilename": "README.md",
   "gitHead": "30ae32bdadeafe0bc0498e084fc5065873c1dc77",
   "main": "dist/pubsub.js",
